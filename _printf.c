@@ -29,7 +29,7 @@ int _printf(const char *format, ...)
             if (format[i] == '\0')
             {
                 va_end(args);
-                return count;
+                return -1;
             }
 
             if (format[i] == 'c')
