@@ -10,23 +10,48 @@
  */
 int _printf(const char *format, ...)
 {
+    if (format == NULL)
+    {
+        return -1;  // Return an error code
+    }
+
     int i = 0;
     int count = 0;
     va_list args;
 
     va_start(args, format);
+    
     while (format[i] != '\0')
     {
         if (format[i] == '%')
         {
             i++;
+            if (format[i] == '\0')
+            {
+                va_end(args);
+                return -1;  // Return an error code
+            }
+
             if (format[i] == 'c')
             {
                 count += _putchar(va_arg(args, int));
             }
             else if (format[i] == 's')
             {
-                count += _puts(va_arg(args, char *));
+                char *str = va_arg(args, char *);
+
+                if (str == NULL)
+                {
+                    count += _puts("(null)");
+                }
+                else
+                {
+                    count += _puts(str);
+                }
+            }
+            else if (format[i] == '%')
+            {
+                count += _putchar('%');
             }
             else if (format[i] == 'd' || format[i] == 'i')
             {
@@ -52,12 +77,9 @@ int _printf(const char *format, ...)
             {
                 count += _print_hex(va_arg(args, unsigned int), 1);
             }
-            else if (format[i] == '%')
-            {
-                count += _putchar('%');
-            }
             else
             {
+                fprintf(stderr, "Error: Invalid format specifier: %%%c\n", format[i]);
                 _putchar('%');
                 _putchar(format[i]);
                 count += 2;
@@ -70,6 +92,7 @@ int _printf(const char *format, ...)
         }
         i++;
     }
+
     va_end(args);
-    return (count);
+    return count;
 }
