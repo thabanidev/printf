@@ -31,8 +31,7 @@ int _printf(const char *format, ...)
                 va_end(args);
                 return -1;
             }
-
-            if (format[i] == 'c')
+            else if (format[i] == 'c')
             {
                 count += _putchar(va_arg(args, int));
             }
