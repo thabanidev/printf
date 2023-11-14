@@ -79,7 +79,7 @@ int _printf(const char *format, ...)
             }
             else
             {
-                return -1;
+                count += _putchar(format[i]);
             }
         }
         else
