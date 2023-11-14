@@ -79,10 +79,7 @@ int _printf(const char *format, ...)
             }
             else
             {
-                fprintf(stderr, "Error: Invalid format specifier: %%%c\n", format[i]);
-                _putchar('%');
-                _putchar(format[i]);
-                count += 2;
+                return -1;
             }
         }
         else
