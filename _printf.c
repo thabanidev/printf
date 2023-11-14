@@ -12,15 +12,19 @@ int _printf(const char *format, ...)
 {
     if (format == NULL)
     {
-        return -1;  // Return an error code
+        return -1;
     }
 
-    int i = 0;
-    int count = 0;
+    int i;
+    int count;
+
+    i = 0;
+    count = 0;
+    
     va_list args;
 
     va_start(args, format);
-    
+
     while (format[i] != '\0')
     {
         if (format[i] == '%')
@@ -29,7 +33,7 @@ int _printf(const char *format, ...)
             if (format[i] == '\0')
             {
                 va_end(args);
-                return -1;  // Return an error code
+                return -1;
             }
 
             if (format[i] == 'c')
